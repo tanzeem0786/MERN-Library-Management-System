@@ -1,4 +1,4 @@
-import express, { urlencoded } from 'express';
+import express, {urlencoded} from 'express';
 import { config } from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -15,7 +15,7 @@ app.use(cors({
     methods: ["GET" , "POST", "PUT", "DELETE"],
     credentials: true,
 }));
-app.use(cookieParser);
+app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use("/api/v1/auth", authRouter)

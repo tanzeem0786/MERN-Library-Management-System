@@ -54,18 +54,18 @@ const userSchema = new mongoose.Schema({
     }
 );
 
-userSchema.methods.getVerificationCode = () => {
+userSchema.methods.getVerificationCode = function () {
     const generateRandomFiveDigits = () => {
         const firstDigit = Math.floor(Math.random() * 9) + 1;
-        const remainingDigits = Math.floor(Math.random() * 10000).toString().padStart(4, 0);
+        const remainingDigits = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
         return parseInt(firstDigit + remainingDigits);
-    }
+    };
 
-            /*CONST VERIFICATIONCODE LIKHNE PR ERROR AA RHA H */ 
-         verificationCode = generateRandomFiveDigits();
-        this.verificationCode = verificationCode;
-        this.verificationCodeExpire = Date.now() + 15 * 60 * 1000;
-        return verificationCode;
+    const verificationCode = generateRandomFiveDigits(); // ✅ declare karo
+    this.verificationCode = verificationCode;
+    this.verificationCodeExpire = Date.now() + 15 * 60 * 1000;
+    return verificationCode;
 };
+
 
 export const User = mongoose.model("User", userSchema);
