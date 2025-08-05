@@ -10,13 +10,13 @@ export const app = express();
 
 config({ path: "./config/config.env" });
 
+app.use(express.json());
 app.use(cors({
     origin: [process.env.FRONTEND_URL],
     methods: ["GET" , "POST", "PUT", "DELETE"],
     credentials: true,
 }));
 app.use(cookieParser());
-app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use("/api/v1/auth", authRouter)
 
