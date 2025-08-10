@@ -84,7 +84,7 @@ export const verifyOtp = catchAsyncErrors(async (req, res, next) => {
         user.verificationCodeExpire = null;
         await user.save({ validateModifiedOnly: true });
 
-        sendToken(user, 200, "Accoutn Verified", res)
+        sendToken(user, 200, "Account Verified", res)
         console.log("Selected User:", user);
         console.log("User Entries Found:", userAllEntries);
 
@@ -94,4 +94,39 @@ export const verifyOtp = catchAsyncErrors(async (req, res, next) => {
         console.error("Otp Error: ", err)
         return next(new ErrorHandler("Internal Server Error!", 500))
     }
-})
+});
+
+export const login = catchAsyncErrors(async(req, res, next) => {
+    const {email, password} = req.body;
+    if( !email || !password ) {
+        return next(new ErrorHandler("Please Enter All Fields!", 400));
+    }
+    const user = await User.findOne({email, accountVerified: true}).select("+password");
+    if(!user) {
+        return next(new ErrorHandler("Invalid email or password!", 400))
+    }
+    const isPasswordMatched = await bcrypt.compare(password, user.password);
+    if(!isPasswordMatched) {
+        return next(new ErrorHandler("Invalid email or password!", 400))
+    }
+    sendToken(user, 200, "User is Login Successfully.", res);
+
+});
+
+export const logOut = catchAsyncErrors(async(req, res, next) => {
+    res.status(200).cookie("token", "", {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+    }).json({
+        success: true,
+        messaga: "Logged Out Successfully.",
+    })
+});
+
+export const getUser = catchAsyncErrors(async(req, res, next) => {
+    const user = req.user;
+    res.status(200).json({
+        success: true,
+        user,
+    });
+});
