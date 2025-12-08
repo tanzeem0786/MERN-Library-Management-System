@@ -18,3 +18,27 @@
   `;
 };
  
+export const generateForgotPasswordEmailTemplate = (resetPasswordUrl) => {
+ return ` <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
+        <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px;">
+            <h2 style="color: #333;">Forgot Your Password?</h2>
+            <p style="font-size: 16px; color: #555;">
+                You requested to reset your password. Please click the button below to proceed:
+            </p>
+            <a href="${resetPasswordUrl}" 
+               style="display: inline-block; padding: 12px 20px; background-color: #0088cc; color: #fff; 
+                      text-decoration: none; border-radius: 5px; margin-top: 10px;">
+                Reset Password
+            </a>
+            <p style="font-size: 14px; color: #888; margin-top: 20px;">
+                If you did not request this, please ignore this email. 
+                The link will expire in 10 minutes.
+            </p>
+            <p style="font-size: 14px; color: #888;">
+                Or paste this link into your browser: <br>
+                <a href="${resetPasswordUrl}" style="color: #0088cc;">${resetPasswordUrl}</a>
+            </p>
+            <p style="font-size: 12px; color: #aaa; margin-top: 20px;">Do not reply to this email.</p>
+        </div>
+    </div>`;
+};
