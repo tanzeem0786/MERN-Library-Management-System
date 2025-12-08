@@ -17,14 +17,16 @@ export const addBook = catchAsyncErrors(async (req, res, next) => {
         message: "Book Added Successfully!",
         book,
     });
-})
+});
+
 export const getAllBooks = catchAsyncErrors(async (req, res, next) => {
     const books = await Book.find();
     res.status(200).json({
         success: true,
         books,
     });
-})
+});
+
 export const deleteBook = catchAsyncErrors(async (req, res, next) => {
     const {id} = req.params;
     const book = await Book.findById(id);
