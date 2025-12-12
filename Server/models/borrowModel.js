@@ -46,7 +46,7 @@ const borrowSchema = new mongoose.Schema({
         default: false,
     },
 },
-{timestamps: true}
+    { timestamps: true }
 );
 
 export const Borrow = mongoose.model("Borrow", borrowSchema);

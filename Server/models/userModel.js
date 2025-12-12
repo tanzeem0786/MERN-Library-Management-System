@@ -61,7 +61,6 @@ userSchema.methods.getVerificationCode = function () {
         const remainingDigits = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
         return parseInt(firstDigit + remainingDigits);
     };
-
     const verificationCode = generateRandomFiveDigits(); 
     this.verificationCode = verificationCode;
     this.verificationCodeExpire = Date.now() + 15 * 60 * 1000;
@@ -71,7 +70,7 @@ userSchema.methods.getVerificationCode = function () {
 userSchema.methods.generateTokens = function() {
     return jwt.sign({id: this._id}, process.env.JWT_SECRET_KEY, {
         expiresIn: process.env.JWT_EXPIRE,
-    })
+    });
 };
 
 userSchema.methods.getResetPasswordToken = function() {

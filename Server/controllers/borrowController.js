@@ -65,9 +65,9 @@ export const returnBorrowBooks = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("User Not Found!", 404));
     }
     const borrowedBooks = user.borrowedBooks.find(
-        (b) => b.bookId.toString() === id && b.returned === false
+        (b) => b.bookId.toString() === bookId && b.returned === false
     );
-    if(!borrowedBooks) {
+    if (!borrowedBooks) {
         return next(new ErrorHandler("You have not Borrowed this Book!", 400));
     }
     borrowedBooks.returned = true;
@@ -82,7 +82,7 @@ export const returnBorrowBooks = catchAsyncErrors(async (req, res, next) => {
         "user.email": email,
         returnDate: null,
     });
-    if(!borrow) {
+    if (!borrow) {
         return next(new ErrorHandler("You have not Borrowed this Book!", 400));
     }
     borrow.returnDate = new Date();
@@ -91,15 +91,15 @@ export const returnBorrowBooks = catchAsyncErrors(async (req, res, next) => {
     await borrow.save();
     res.status(200).json({
         success: true,
-        message: fine !== 0 
-        ? `The Book has Been Returned Successfully. The Total Charges, including a fine , are Rs.${fine + book.price}` 
-        : `The Book has Been Returned Successfully. The Total Charges are Rs.${book.price}`,
+        message: fine !== 0
+            ? `The Book has Been Returned Successfully. The Total Charges, including a fine , are Rs.${fine + book.price}`
+            : `The Book has Been Returned Successfully. The Total Charges are Rs.${book.price}`,
     })
 
 });
 
 export const borrowedBooks = catchAsyncErrors(async (req, res, next) => {
-    const {borrowedBooks} = req.user;
+    const { borrowedBooks } = req.user;
     res.status(200).json({
         success: true,
         borrowedBooks,
