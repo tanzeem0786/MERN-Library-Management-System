@@ -8,6 +8,7 @@ import { sendVerificationCode } from '../utils/sendVerificationCode.js';
 import { sendToken } from '../utils/sendTokens.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { generateForgotPasswordEmailTemplate } from '../utils/emailTemplates.js';
+import { error } from 'console';
 
 export const register = catchAsyncErrors(async (req, res, next) => {
     try {
@@ -174,20 +175,20 @@ export const forgotPassword = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const resetPassword = catchAsyncErrors(async (req, res, next) => {
-    const { token } = req.params;
+    const { token } = req.params; 
     const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
-    console.log("working 179");
-
     const user = await User.findOne({
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() },
     });
-    console.log('working 185');
-
     if (!user) {
+        console.log(user);       
         return next(new ErrorHandler("Reset Password Token is invalid or Expired.!", 400));
+    }   
+    const {password, confirmPassword} = req.body;
+    if(!password || !confirmPassword) {
+        return next(new ErrorHandler("Passwords fields are required!"));
     }
-    console.log("working 190");
 
     if (req.body.password !== req.body.confirmPassword) {
         return next(new ErrorHandler("Password and Confirm Password do not match!", 400));

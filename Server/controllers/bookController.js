@@ -1,5 +1,5 @@
-import { catchAsyncErrors } from '../middlewares/catchAsyncErrors';
-import { ErrorHandler } from '../middlewares/errorMiddlewares.js'
+import { catchAsyncErrors } from '../middlewares/catchAsyncErrors.js';
+import ErrorHandler  from '../middlewares/errorMiddlewares.js'
 import express from 'express';
 import { Book } from '../models/bookModel.js';
 
