@@ -6,10 +6,10 @@ import { User } from '../models/userModel.js';
 import { calculateFine } from '../utils/fineCalculate.js';
 
 export const recordBorrowedBooks = catchAsyncErrors(async (req, res, next) => {
-    const { id } = req.params;
+    const { bookId } = req.params;
     const { email } = req.body;
 
-    const book = await Book.findById(id);
+    const book = await Book.findById(bookId);
     if (!book) {
         return next(new ErrorHandler("Book Not Found!", 400));
     }
@@ -21,7 +21,7 @@ export const recordBorrowedBooks = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Book Not Available!", 400));
     }
     const isAlreadyBorrowed = user.borrowedBooks.find(
-        (b) => b.bookId.toString() === id && b.returned === false
+        (b) => b.bookId.toString() === bookId && b.returned === false
     );
     if (isAlreadyBorrowed) {
         return next(new ErrorHandler("Book Already Borrowed!", 400));
@@ -54,9 +54,11 @@ export const recordBorrowedBooks = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const returnBorrowBooks = catchAsyncErrors(async (req, res, next) => {
-    const { bookId } = req.params;
-    const { email } = req.body;
+    const {bookId}  = req.params;
+    const { email}  = req.body;
+    
     const book = await Book.findById(bookId);
+ 
     if (!book) {
         return next(new ErrorHandler("Book Not Found!", 404));
     }
