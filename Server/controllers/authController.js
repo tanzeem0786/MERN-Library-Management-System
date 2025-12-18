@@ -8,7 +8,7 @@ import { sendVerificationCode } from '../utils/sendVerificationCode.js';
 import { sendToken } from '../utils/sendTokens.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { generateForgotPasswordEmailTemplate } from '../utils/emailTemplates.js';
-import { error } from 'console';
+
 
 export const register = catchAsyncErrors(async (req, res, next) => {
     try {
@@ -46,9 +46,9 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 
 export const verifyOtp = catchAsyncErrors(async (req, res, next) => {
     const { email, otp } = req.body;
-    if (!email || !otp)
+    if (!email || !otp) {
         return next(new ErrorHandler("Email or Otp is Missing!", 400))
-
+    }
     try {
         const userAllEntries = await User.find({
             email,
@@ -72,9 +72,7 @@ export const verifyOtp = catchAsyncErrors(async (req, res, next) => {
         if (user.verificationCode !== Number(otp)) {
             return next(new ErrorHandler("Invalid Otp!", 400));
         }
-
         const currentTime = Date.now();
-
         const verificationCodeExpire = new Date(
             user.verificationCodeExpire
         ).getTime();
@@ -88,8 +86,8 @@ export const verifyOtp = catchAsyncErrors(async (req, res, next) => {
         await user.save({ validateModifiedOnly: true });
 
         sendToken(user, 200, "Account Verified", res)
-        console.log("Selected User:", user);
-        console.log("User Entries Found:", userAllEntries);
+        // console.log("Selected User:", user);
+        // console.log("User Entries Found:", userAllEntries);
 
     } catch (err) {
         console.log("Request Body:", req.body);
@@ -182,7 +180,7 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
         resetPasswordExpire: { $gt: Date.now() },
     });
     if (!user) {
-        console.log(user);       
+               
         return next(new ErrorHandler("Reset Password Token is invalid or Expired.!", 400));
     }   
     const {password, confirmPassword} = req.body;

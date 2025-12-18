@@ -5,10 +5,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { connectDB } from './database/db.js';
 import { errorMiddleware } from './middlewares/errorMiddlewares.js';
-import authRouter from './routes/authRouter.js'
-import bookRouter from './routes/bookRouter.js'
-import borrowRouter from './routes/borrowRouter.js'
-import userRouter from './routes/userRouter.js'
+import authRouter from './routes/authRouter.js';
+import bookRouter from './routes/bookRouter.js';
+import borrowRouter from './routes/borrowRouter.js';
+import userRouter from './routes/userRouter.js';
+import { notifyUsers } from './service/notifyUser.js';
+import { removeUnverifiedAccounts } from './service/removeUnverifiedAccounts.js';
 
 export const app = express();
 
@@ -35,7 +37,8 @@ app.use("/api/v1/book", bookRouter);
 app.use("/api/v1/borrow", borrowRouter);
 app.use("/api/v1/user", userRouter);
 
-
+notifyUsers();
+removeUnverifiedAccounts();
 connectDB();
 
 app.use(errorMiddleware);
