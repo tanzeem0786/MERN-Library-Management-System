@@ -9,6 +9,7 @@ import BookManagement from '../components/BookManagement.jsx';
 import Users from '../components/Users.jsx';
 import Catalog from '../components/Catalog.jsx';
 import MyBorrowedBooks from '../components/MyBorrowedBooks.jsx';
+import ErrorBoundary  from "../components/ErrorBoundary.jsx";
 
 
 const Home = () => {
@@ -53,11 +54,15 @@ const Home = () => {
                 </div>
 
                 {/* Sidebar */}
-                <SideBar
-                    isSideBarOpen={isSideBarOpen}
-                    setIsSideBarOpen={setIsSideBarOpen}
-                    // setSelectedComponents={handleComponentSelect}
-                />
+
+             
+
+                    <SideBar
+                        isSideBarOpen={isSideBarOpen}
+                        setIsSideBarOpen={setIsSideBarOpen}
+                        setSelectedComponents={setSelectedComponents}
+                    />
+                
 
                 {(() => {
                     switch (selectedComponents) {
@@ -95,14 +100,8 @@ const Home = () => {
                             break;
                     }
                 })()}
-                {/* Main Content Area */}
-                <div className="flex-1 p-4 md:p-8">
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                        <h1 className="text-3xl font-bold mb-4">Welcome, {user?.name || "User"}!</h1>
-                        <p className="text-gray-600">Selected: {selectedComponents}</p>
-                        {/* Add your dashboard or other components here based on selectedComponents */}
-                    </div>
-                </div>
+
+
             </div>
         </>
     );

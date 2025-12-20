@@ -194,7 +194,8 @@ export const logout = () => async (dispatch) => {
         dispatch(authSlice.actions.logoutSuccess(res.data.message));
         dispatch(authSlice.actions.resetAuthSlice());
     }).catch(error => {
-        dispatch(authSlice.actions.logoutFailed(error.response.data.message))
+        const message = error.response?.data?.message || "Logout failed";
+        dispatch(authSlice.actions.logoutFailed(message))
     });
 };
 

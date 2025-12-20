@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import {toast} from 'react-toastify'
 import logo_with_title from "../assets/logo-with-title.png";
 import logoutIcon from "../assets/logout.png";
 import closeIcon from "../assets/white-close-icon.png";
@@ -9,7 +10,7 @@ import settingIcon from "../assets/setting-white.png";
 import usersIcon from "../assets/people.png";
 import { RiAdminFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../store/slices/authSlice.js";
+import { logout, resetAuthSlice } from "../store/slices/authSlice.js";
 import { toggleAddNewAdminPopup, toggleSettingPopup } from '../store/slices/popupSlice.js'
 import AddNewAdmin from '../popup/AddNewAdmin.jsx'
 
