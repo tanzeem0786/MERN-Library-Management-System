@@ -15,19 +15,19 @@ const popupSlice = createSlice({
             state.settingPopup = !state.settingPopup;
         },
         toggleAddBookPopup(state) {
-            state.settingPopup = !state.settingPopup;
+            state.addBookPopup = !state.addBookPopup;
         },
         toggleReadBookPopup(state) {
-            state.settingPopup = !state.settingPopup;
+            state.readBookPopup = !state.readBookPopup;
         },
         toggleRecordBookPopup(state) {
-            state.settingPopup = !state.settingPopup;
+            state.recordBookPopup = !state.recordBookPopup;
         },
         toggleAddNewAdminPopup(state) {
-            state.settingPopup = !state.settingPopup;
+            state.addNewAdminPopup = !state.addNewAdminPopup;
         },
         toggleReturnBookPopup(state) {
-            state.settingPopup = !state.settingPopup;
+            state.returnBookPopup = !state.returnBookPopup;
         },
         closeAllPopup(state) {
             state.addBookPopup = false;
