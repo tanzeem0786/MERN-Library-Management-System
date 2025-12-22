@@ -120,7 +120,7 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
         httpOnly: true,
     }).json({
         success: true,
-        messaga: "Logged Out Successfully.",
+        message: "Logged Out Successfully.",
     })
 });
 

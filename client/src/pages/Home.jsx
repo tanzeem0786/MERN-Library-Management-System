@@ -10,6 +10,7 @@ import Users from '../components/Users.jsx';
 import Catalog from '../components/Catalog.jsx';
 import MyBorrowedBooks from '../components/MyBorrowedBooks.jsx';
 import ErrorBoundary  from "../components/ErrorBoundary.jsx";
+import Register from "./Register.jsx";
 
 
 const Home = () => {
@@ -19,7 +20,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
 
     const { user, isAuthenticated } = useSelector((state) => state.auth);
-
+    
     // Authentication check
     useEffect(() => {
         if (!isAuthenticated) {
@@ -37,11 +38,8 @@ const Home = () => {
         return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
     }
 
-    // // Close sidebar on mobile when component is selected
-    // const handleComponentSelect = (component) => {
-    //     setSelectedComponents(component);
-    //     setIsSideBarOpen(false);
-    // };
+    <Register/>
+
     return (
         <>
             <div className="relative md:pl-64 flex min-h-screen bg-grey-100">
@@ -52,18 +50,12 @@ const Home = () => {
                         onClick={() => setIsSideBarOpen(!isSideBarOpen)}
                     />
                 </div>
-
                 {/* Sidebar */}
-
-             
-
                     <SideBar
                         isSideBarOpen={isSideBarOpen}
                         setIsSideBarOpen={setIsSideBarOpen}
-                        setSelectedComponents={setSelectedComponents}
-                    />
-                
-
+                        setSelectedComponent={setSelectedComponents}
+                    />           
                 {(() => {
                     switch (selectedComponents) {
                         case "Dashboard":
@@ -77,17 +69,17 @@ const Home = () => {
                             return <BookManagement />;
                             break;
                         case "Catalog":
-                            if (user.role === "Admin") {
+                            if (user?.role === "Admin") {
                                 return <Catalog />
                             }
                             break;
                         case "Users":
-                            if (user.role === "Admin") {
+                            if (user?.role === "Admin") {
                                 return <Users />
                             }
                             break;
                         case "My Borrowed Books":
-                            if (user.role === "Admin") {
+                            if (user?.role === "Admin") {
                                 return <MyBorrowedBooks />
                             }
                             break;
@@ -100,8 +92,6 @@ const Home = () => {
                             break;
                     }
                 })()}
-
-
             </div>
         </>
     );
