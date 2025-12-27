@@ -90,7 +90,7 @@ export const verifyOtp = catchAsyncErrors(async (req, res, next) => {
         // console.log("User Entries Found:", userAllEntries);
 
     } catch (err) {
-        console.log("Request Body:", req.body);
+        // console.log("Request Body:", req.body);
 
         console.error("Otp Error: ", err)
         return next(new ErrorHandler("Internal Server Error!", 500))

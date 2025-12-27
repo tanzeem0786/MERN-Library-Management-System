@@ -1,4 +1,3 @@
-import { logout } from "../controllers/authController.js";
 
 class ErrorHandler extends Error {
     constructor(message, statusCode) {

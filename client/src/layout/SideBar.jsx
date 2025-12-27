@@ -33,7 +33,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
       dispatch(resetAuthSlice());
     }
     if (message) {
-      toast.success(message);
+      // toast.success(message);
       dispatch(resetAuthSlice());
     }
   }, [dispatch, isAuthenticated, error, loading, message]);
@@ -61,8 +61,8 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
           >
             <img src={bookIcon} alt="books" /> <span>Books</span>
           </button>
-          {/* {isAuthenticated && user?.role === "Admin" && (
-            <> */}
+          {isAuthenticated && user?.role === "Admin" && (
+            <>
           <button
             onClick={() => setSelectedComponent("Catalog")}
             className="w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2"
@@ -81,8 +81,8 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
           >
             <RiAdminFill className="w-6 h-6" /> <span>Add New Admin</span>
           </button>
-          {/* </>
-            )} */}
+          </>
+            )}
           {isAuthenticated && user?.role === "User" && (
             <button
               onClick={() => setSelectedComponent("My Borrowed Books")}
