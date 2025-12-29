@@ -208,8 +208,16 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 export const updatePassword = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.user._id).select("password");
-    const { currentPassword, newPassword, confirmPassword } = req.body;
-    if (!currentPassword || !newPassword || !confirmPassword) {
+    const { currentPassword, newPassword, confirmNewPassword } = req.body;
+     console.log(req.body);
+     console.log(currentPassword);
+     console.log(newPassword);
+     console.log(confirmNewPassword);
+
+     
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
+        console.log("Server body Password");
+        
         return next(new ErrorHandler("Please Enter All Fields!", 400));
     }
     const isPasswordMatched = await bcrypt.compare(currentPassword, user.password);
@@ -218,11 +226,11 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
     }
     if (newPassword.length < 8 ||
         newPassword.length > 16 ||
-        confirmPassword.length < 8 ||
-        confirmPassword.length > 16) {
+        confirmNewPassword.length < 8 ||
+        confirmNewPassword.length > 16) {
         return next(new ErrorHandler("Password Must be Between 8 and 16 characters!", 400));
     }
-    if (newPassword !== confirmPassword) {
+    if (newPassword !== confirmNewPassword) {
         return next(new ErrorHandler("New Password and Confirm Password do not match!", 400));
     }
     const hashedPassword = await bcrypt.hash(newPassword, 10);
