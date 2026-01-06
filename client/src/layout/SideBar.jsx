@@ -13,11 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, resetAuthSlice } from "../store/slices/authSlice.js";
 import { toggleAddNewAdminPopup, toggleSettingPopup } from '../store/slices/popupSlice.js'
 import AddNewAdmin from '../popup/AddNewAdminPopup.jsx'
+import SettingPopup from '../popup/SettingPopup.jsx';
 
 
 const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
   const dispatch = useDispatch();
-  const { addNewAdminPopup } = useSelector((state) => state.popup);
+  const { addNewAdminPopup, settingPopup } = useSelector((state) => state.popup);
 
   const { loading, error, message, isAuthenticated, user } = useSelector(
     (state) => state.auth
@@ -88,13 +89,13 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
               onClick={() => setSelectedComponent("My Borrowed Books")}
               className="w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2"
             >
-              <img src={catalogIcon} alt="my-borrowed-books" />{" "}
+              <img src={catalogIcon} alt="my-borrowed-books" />
               <span>My Borrowed Books</span>
             </button>
           )}
           <button
             onClick={() => dispatch(toggleSettingPopup())}
-            className=" w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2"
+            className="md:hidden w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2"
           >
             <img src={settingIcon} alt="setting" />{" "}
             <span>Update Credentials</span>
@@ -116,6 +117,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
         />
       </aside>
       {addNewAdminPopup && <AddNewAdmin />}
+      {settingPopup && <SettingPopup />}
     </>
   );
 };

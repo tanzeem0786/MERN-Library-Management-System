@@ -1,25 +1,54 @@
-import React from "react";
-import {ToastContainer} from 'react-toastify';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Home from './pages/Home.jsx'
-import Login from './pages/Login.jsx'
-import Register from './pages/Register.jsx'
-import ForgotPassword from './pages/ForgotPassword.jsx'
-import OTP from './pages/OTP.jsx'
-import ResetPassword from './pages/ResetPassword.jsx'
+import React, { useEffect } from "react";
+import { ToastContainer } from 'react-toastify';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home.jsx';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import ForgotPassword from './pages/ForgotPassword.jsx';
+import OTP from './pages/OTP.jsx';
+import ResetPassword from './pages/ResetPassword.jsx';
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from './store/slices/authSlice.js';
+import { fetchAllUsers } from "./store/slices/userSlice.js";
+import { fetchAllBooks } from "./store/slices/bookSlice.js";
+import { fetchAllBorrowedBooks, fetchUserBorrowedBooks, resetBorrowSlice } from "./store/slices/borrowSlice.js";
+import Users from "./components/Users.jsx";
+import BookManagement from "./components/BookManagement.jsx";
+import Catalog from "./components/Catalog.jsx";
+import MyBorrowedBooks from "./components/MyBorrowedBooks.jsx";
 
 
 const App = () => {
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+    dispatch(fetchAllBooks());
+    if (isAuthenticated && user?.role === "User") {
+      dispatch(fetchUserBorrowedBooks());
+    }
+    if (isAuthenticated && user?.role === "Admin") {
+      dispatch(fetchAllUsers());
+      dispatch(fetchAllBorrowedBooks());
+    }
+  }, [isAuthenticated]);
+
   return <Router>
     <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="/register" element={<Register/>} />
-      <Route path="/password/forgot" element={<ForgotPassword/>} />
-      <Route path="/otp-verification/:email" element={<OTP/>} />
-      <Route path="/password/reset/:token" element={<ResetPassword/>} />
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/password/forgot" element={<ForgotPassword />} />
+      <Route path="/otp-verification/:email" element={<OTP />} />
+      <Route path="/password/reset/:token" element={<ResetPassword />} />
+      <Route path="/users" element={<Users />} />
+      <Route path="/book-management" element={<BookManagement />} />
+      <Route path="/catalog" element={<Catalog />} />
+      <Route path="/my-borrowed-books" element={<MyBorrowedBooks />} />
+
+
     </Routes>
-    <ToastContainer theme="dark"/>
+    <ToastContainer theme="dark" />
   </Router>
 };
 
