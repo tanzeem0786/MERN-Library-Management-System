@@ -209,15 +209,8 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
 export const updatePassword = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.user._id).select("password");
     const { currentPassword, newPassword, confirmNewPassword } = req.body;
-     console.log(req.body);
-     console.log(currentPassword);
-     console.log(newPassword);
-     console.log(confirmNewPassword);
-
-     
+    
     if (!currentPassword || !newPassword || !confirmNewPassword) {
-        console.log("Server body Password");
-        
         return next(new ErrorHandler("Please Enter All Fields!", 400));
     }
     const isPasswordMatched = await bcrypt.compare(currentPassword, user.password);

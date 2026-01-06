@@ -13,7 +13,7 @@ export const getAllUsers = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const registerNewAdmin = catchAsyncErrors(async (req, res, next) => {
-    if (!req.files || Object.keys(req.files).lenght === 0) {
+    if (!req.files || Object.keys(req.files).length === 0) {
         return next(new ErrorHandler("Admin Avatar is Required!", 400));
     }
     const { name, email, password } = req.body; 
@@ -24,7 +24,7 @@ export const registerNewAdmin = catchAsyncErrors(async (req, res, next) => {
     if (isRegistered) {
         return next(new ErrorHandler("User Already Registered!", 400));
     }
-    if (password.lenght < 8 || password.lenght > 16) {
+    if (password.length < 8 || password.length > 16) {
         return next(new ErrorHandler("Password Must be Between 8 to 16 Characters long!", 400));
     }
     const { avatar } = req.files;
@@ -53,7 +53,7 @@ export const registerNewAdmin = catchAsyncErrors(async (req, res, next) => {
         accountVerified: true,
         avatar: {
             public_id: cloudinaryResponse.public_id,
-            url: cloudinaryResponse.secure__url,
+            url: cloudinaryResponse.secure_url,
         }
     });
     res.status(201).json({
