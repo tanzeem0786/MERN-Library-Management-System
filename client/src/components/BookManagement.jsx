@@ -96,7 +96,7 @@ const BookManagement = () => {
       {/* Table */}
       {
         books && books.length > 0 ? (
-          <div className="mt-6 overflow-auto bg-white rounded-md  shadow-lg ">
+          <div className="mt-6 overflow-y-auto overflow-x-scroll bg-white rounded-md  shadow-lg ">
             <table className="min-w-full border-collapse">
               <thead>
                 <tr className="bg-gray-200">

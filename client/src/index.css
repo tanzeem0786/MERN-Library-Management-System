@@ -6,6 +6,6 @@
   font-family: "Montserrat", serif, Arial, Helvetica, sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  overflow-x: hidden;
+  /* overflow-x:scroll; */
   box-sizing: border-box;
 }
