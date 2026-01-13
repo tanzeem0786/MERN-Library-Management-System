@@ -173,7 +173,7 @@ export const otpVerification = (email, otp) => async (dispatch) => {
 
 export const login = (data) => async (dispatch) => {
     dispatch(authSlice.actions.loginRequest());
-    await axios.post("http://localhost:4000/api/v1/auth/login", data, {
+    await axios.post("/api/v1/auth/login", data, {
         withCredentials: true,
         header: {
             "Content-Type": "application/json"
@@ -187,7 +187,7 @@ export const login = (data) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
     dispatch(authSlice.actions.logoutRequest());
-    await axios.get("http://localhost:4000/api/v1/auth/logout", {
+    await axios.get("/api/v1/auth/logout", {
         withCredentials: true,
     }).then(res => {
         dispatch(authSlice.actions.logoutSuccess(res.data.message));
