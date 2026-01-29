@@ -11,6 +11,7 @@ import borrowRouter from './routes/borrowRouter.js';
 import userRouter from './routes/userRouter.js';
 import { notifyUsers } from './service/notifyUser.js';
 import { removeUnverifiedAccounts } from './service/removeUnverifiedAccounts.js';
+import { User } from './models/userModel.js';
 
 export const app = express();
 
@@ -36,6 +37,8 @@ app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/book", bookRouter);
 app.use("/api/v1/borrow", borrowRouter);
 app.use("/api/v1/user", userRouter);
+
+
 
 notifyUsers();
 removeUnverifiedAccounts();
