@@ -18,7 +18,6 @@ const Register = () => {
         loading,
         error,
         message,
-        user,
         isAuthenticated,
 
     } = useSelector((state) => state.auth);
@@ -43,7 +42,7 @@ const Register = () => {
             toast.error(error);
             dispatch(resetAuthSlice());
         }
-    }, [dispatch, isAuthenticated, error, loading]);
+    }, [dispatch, message, navigateTo,email, isAuthenticated, error, loading]);
 
     if (isAuthenticated) {
         return <Navigate to={"/"} />;

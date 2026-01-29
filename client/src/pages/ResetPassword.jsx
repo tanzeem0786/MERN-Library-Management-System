@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import logo from "../assets/black-logo.png";
 import logo_with_title from "../assets/logo-with-title.png";
 import {  resetAuthSlice, resetPassword } from '../store/slices/authSlice.js'
@@ -17,7 +17,6 @@ const ResetPassword = () => {
         loading,
         error,
         message,
-        user,
         isAuthenticated,
 
     } = useSelector((state) => state.auth);

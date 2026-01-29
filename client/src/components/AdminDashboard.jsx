@@ -5,7 +5,7 @@ import usersIcon from "../assets/people-black.png";
 import bookIcon from "../assets/book-square.png";
 import { Pie } from "react-chartjs-2";
 import logo from "../assets/black-logo.png";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import Header from "../layout/Header.jsx";
 import {
   Chart as ChartJS,
@@ -34,12 +34,12 @@ ChartJS.register(
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { users } = useSelector((state) => state.user);
   const { books } = useSelector((state) => state.book);
   const { allBorrowedBooks } = useSelector((state) => state.borrow);
-  const { settingPopup } = useSelector((state) => state.popup);
+  // const { settingPopup } = useSelector((state) => state.popup);
 
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalAdmin, setTotalAdmin] = useState(0);
