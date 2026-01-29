@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:4000",
+        target: "https://library-management-system-2yg5.onrender.com",
         changeOrigin: true,
         secure:true,
       }
