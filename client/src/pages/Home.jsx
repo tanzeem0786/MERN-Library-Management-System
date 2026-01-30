@@ -33,9 +33,9 @@ const Home = () => {
     if (loading) {
         return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
     }
-    if (!isAuthenticated) {
-        return <Navigate to={"/login"} />;
-    }
+    // if (!isAuthenticated) {
+    //     return <Navigate to={"/login"} />;
+    // }
 
 
     return (
