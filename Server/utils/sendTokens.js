@@ -1,5 +1,5 @@
-export const sendToken = (user, statusCode, message, res) => {
-    const token = user.generateTokens();
+export const sendToken = async(user, statusCode, message, res) => {
+    const token = await user.generateTokens();
     res.status(statusCode).cookie("token", token, {
         expires: new Date(
             Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000

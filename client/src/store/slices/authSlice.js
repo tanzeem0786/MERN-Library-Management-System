@@ -147,12 +147,14 @@ export const register = (data) => async (dispatch) => {
     dispatch(authSlice.actions.registerRequest());
     await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/auth/register", data, {
         withCredentials: true,
-        header: {
+        headers: {
             "Content-Type": "application/json"
         },
     }).then(res => {
+        console.log(res)
         dispatch(authSlice.actions.registerSuccess(res.data))
     }).catch(error => {
+        console.log(error)
         dispatch(authSlice.actions.registerFailed(error.response.data.message))
     });
 };
@@ -161,7 +163,7 @@ export const otpVerification = (email, otp) => async (dispatch) => {
     dispatch(authSlice.actions.otpVerificationRequest());
     await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/auth/verify-otp", { email, otp }, {
         withCredentials: true,
-        header: {
+        headers: {
             "Content-Type": "application/json"
         },
     }).then(res => {
@@ -175,12 +177,14 @@ export const login = (data) => async (dispatch) => {
     dispatch(authSlice.actions.loginRequest());
     await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/auth/login", data, {
         withCredentials: true,
-        header: {
+        headers: {
             "Content-Type": "application/json"
         },
     }).then(res => {
         dispatch(authSlice.actions.loginSuccess(res.data))
     }).catch(error => {
+    console.log(error);
+    
         dispatch(authSlice.actions.loginFailed(error.response.data.message))
     });
 };
@@ -213,7 +217,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     dispatch(authSlice.actions.forgotPasswordRequest());
     await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/auth/password/forgot", { email }, {
         withCredentials: true,
-        header: {
+        headers: {
             "Content-Type": "application/json"
         },
     }).then(res => {
@@ -227,7 +231,7 @@ export const resetPassword = (data, token) => async (dispatch) => {
     dispatch(authSlice.actions.resetPasswordRequest());
     await axios.put(`https://library-management-system-2yg5.onrender.com/api/v1/auth/password/reset/${token}`, data, {
         withCredentials: true,
-        header: {
+        headers: {
             "Content-Type": "application/json"
         },
     }).then(res => {
@@ -241,7 +245,7 @@ export const updatePassword = (data) => async (dispatch) => {
     dispatch(authSlice.actions.updatePasswordRequest());
     await axios.put(`https://library-management-system-2yg5.onrender.com/api/v1/auth/password/update`, data, {
         withCredentials: true,
-        header: {
+        headers: {
             "Content-Type": "application/json"
         },
     }).then(res => {

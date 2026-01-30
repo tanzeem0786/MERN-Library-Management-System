@@ -16,10 +16,15 @@ import { User } from './models/userModel.js';
 export const app = express();
 
 config({ path: "./config/config.env" });
+app.use((req, res, next) => {
+  console.log("Request Origin:", req.headers.origin);
+  next();
+});
+
 
 app.use(
     cors({
-        origin: [process.env.FRONTEND_URL],
+        origin: [process.env.FRONTEND_URL , "http://localhost:5173"],
         methods: ["GET" , "POST", "PUT", "DELETE"],
         credentials: true,
     })
