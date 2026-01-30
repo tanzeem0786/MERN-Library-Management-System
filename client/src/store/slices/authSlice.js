@@ -185,6 +185,17 @@ export const login = (data) => async (dispatch) => {
     });
 };
 
+
+export const getUser = () => async (dispatch) => {
+    dispatch(authSlice.actions.getUserRequest());
+    await axios.get("https://library-management-system-2yg5.onrender.com/api/v1/auth/me", {
+        withCredentials: true,
+    }).then(res => {
+        dispatch(authSlice.actions.getUserSuccess(res.data));
+    }).catch(error => {
+        dispatch(authSlice.actions.getUserFailed(error.response.data.message))
+    });
+};
 export const logout = () => async (dispatch) => {
     dispatch(authSlice.actions.logoutRequest());
     await axios.get("https://library-management-system-2yg5.onrender.com/api/v1/auth/logout", {
@@ -195,17 +206,6 @@ export const logout = () => async (dispatch) => {
     }).catch(error => {
         const message = error.response?.data?.message || "Logout failed";
         dispatch(authSlice.actions.logoutFailed(message))
-    });
-};
-
-export const getUser = () => async (dispatch) => {
-    dispatch(authSlice.actions.getUserRequest());
-    await axios.get("https://library-management-system-2yg5.onrender.com/api/v1/auth/me", {
-        withCredentials: true,
-    }).then(res => {
-        dispatch(authSlice.actions.getUserSuccess(res.data));
-    }).catch(error => {
-        dispatch(authSlice.actions.getUserFailed(error.response.data.message))
     });
 };
 

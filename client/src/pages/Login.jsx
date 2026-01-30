@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import logo from "../assets/black-logo.png";
 import logo_with_title from "../assets/logo-with-title.png";
-import { login, resetAuthSlice } from '../store/slices/authSlice.js'
+import { getUser, login, resetAuthSlice } from '../store/slices/authSlice.js'
 import { toast } from "react-toastify";
 
 
@@ -31,7 +31,7 @@ const Login = () => {
     useEffect(() => {
             if (message) {
                 toast.success(message)
-                dispatch(resetAuthSlice());
+                dispatch(getUser());
             }
             if (error) {
                 toast.error(error);

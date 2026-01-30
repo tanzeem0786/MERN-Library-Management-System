@@ -19,7 +19,7 @@ const Home = () => {
     const [selectedComponents, setSelectedComponents] = useState("dashboard");
     const [loading, setLoading] = useState(true);
 
-    const { user, isAuthenticated } = useSelector((state) => state.auth);
+    const { user, isAuthenticated} = useSelector((state) => state.auth);
 
     // Authentication check
     useEffect(() => {
@@ -29,14 +29,14 @@ const Home = () => {
             setLoading(false);
         }
     }, [isAuthenticated]);
-
+    
+    if (loading) {
+        return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
+    }
     if (!isAuthenticated) {
         return <Navigate to={"/login"} />;
     }
 
-    if (loading) {
-        return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
-    }
 
     return (
         <>
