@@ -26,7 +26,6 @@ const BookManagement = () => {
     loading: borrowSliceLoading,
     error: borrowSliceError,
     message: borrowSliceMessage,
-    allBorrowedBooks,
   } = useSelector((state) => state.borrow);
 
   const [readBook, setReadBook] = useState({});

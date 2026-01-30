@@ -34,7 +34,7 @@ const Register = () => {
 
     useEffect(() => {
         if (message) {
-            // toast.success(message)
+            toast.success(message)
             dispatch(resetAuthSlice());
             navigateTo(`/otp-verification/${email}`);
         }
@@ -79,7 +79,7 @@ const Register = () => {
                             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full px-4 py-3 border border-black rounded-md focus:outline-none" />
                         </div>
                         <div className="mb-2">
-                            <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="w-full px-4 py-3 border border-black rounded-md focus:outline-none" />
+                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="w-full px-4 py-3 border border-black rounded-md focus:outline-none" />
                         </div>
                         <div className="block md:hidden font-semibold mt-5 ">
                             <p >Already have Account?

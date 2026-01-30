@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BookA } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleReadBookPopup } from "../store/slices/popupSlice.js";

@@ -16,11 +16,6 @@ import { User } from './models/userModel.js';
 export const app = express();
 
 config({ path: "./config/config.env" });
-app.use((req, res, next) => {
-  console.log("Request Origin:", req.headers.origin);
-  next();
-});
-
 
 app.use(
     cors({

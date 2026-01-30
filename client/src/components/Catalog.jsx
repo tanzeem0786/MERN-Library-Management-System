@@ -61,7 +61,7 @@ const Catalog = () => {
       toast.error(error);
     }
 
-  }, [dispatch, error, loading]);
+  }, [dispatch, error,message, loading]);
   return <>
     <main className="relative flex-1 p-6 pt-6">
       <Headers />

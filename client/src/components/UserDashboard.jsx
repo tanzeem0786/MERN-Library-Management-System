@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo_with_title from "../assets/logo-with-title-black.png";
+// import logo_with_title from "../assets/logo-with-title-black.png";
 import returnIcon from "../assets/redo.png";
 import browseIcon from "../assets/pointing.png";
 import bookIcon from "../assets/book-square.png";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { Pie } from "react-chartjs-2";
 import Headers from '../layout/Header.jsx';
 import {
