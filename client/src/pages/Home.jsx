@@ -25,6 +25,7 @@ const Home = () => {
     useEffect(() => {
         if (!isAuthenticated) {
             setLoading(false);
+            return <Navigate to={"/login"} />;
         } else {
             setLoading(false);
         }
