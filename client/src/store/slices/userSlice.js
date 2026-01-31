@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from "react-toastify";
 import { toggleAddNewAdminPopup } from "./popupSlice";
+import { api } from "../baseURL.js";
 
 const userSlice = createSlice({
     name: "user",
@@ -34,15 +35,14 @@ const userSlice = createSlice({
 
 export const fetchAllUsers = () => async (dispatch) => {
     dispatch(userSlice.actions.fetchAllUserRequest());
-    await axios.get("https://library-management-system-2yg5.onrender.com/api/v1/user/all", { withCredentials: true })
+    await api.get('/api/v1/user/all')
         .then((res) => dispatch(userSlice.actions.fetchAllUserSuccess(res.data.users)))
         .catch((err) => dispatch(userSlice.actions.fetchAllUserFailed(err.response.data.message)));
 };
     
 export const addNewAdmin = (data) => async (dispatch) => {
     dispatch(userSlice.actions.addNewAdminRequest());
-    await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/user/add/new-admin", data, {
-        withCredentials: true,
+    await api.post('/api/v1/user/add/new-admin', data, {
         headers: {
             "Content-Type": "multipart/form-data",
         }

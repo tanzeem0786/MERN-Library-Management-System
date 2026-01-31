@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-
+// import axios from 'axios';
+import { api } from '../baseURL.js';
 
 
 export const authSlice = createSlice({
@@ -145,8 +145,7 @@ export const resetAuthSlice = () => (dispatch) => {
 
 export const register = (data) => async (dispatch) => {
     dispatch(authSlice.actions.registerRequest());
-    await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/auth/register", data, {
-        withCredentials: true,
+    await api.post('/api/v1/auth/register', data, {
         headers: {
             "Content-Type": "application/json"
         },
@@ -159,8 +158,7 @@ export const register = (data) => async (dispatch) => {
 
 export const otpVerification = (email, otp) => async (dispatch) => {
     dispatch(authSlice.actions.otpVerificationRequest());
-    await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/auth/verify-otp", { email, otp }, {
-        withCredentials: true,
+    await api.post('/api/v1/auth/verify-otp', { email, otp }, {
         headers: {
             "Content-Type": "application/json"
         },
@@ -173,8 +171,7 @@ export const otpVerification = (email, otp) => async (dispatch) => {
 
 export const login = (data) => async (dispatch) => {
     dispatch(authSlice.actions.loginRequest());
-    await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/auth/login", data, {
-        withCredentials: true,
+    await api.post('/api/v1/auth/login', data, {
         headers: {
             "Content-Type": "application/json"
         },
@@ -188,19 +185,16 @@ export const login = (data) => async (dispatch) => {
 
 export const getUser = () => async (dispatch) => {
     dispatch(authSlice.actions.getUserRequest());
-    await axios.get("https://library-management-system-2yg5.onrender.com/api/v1/auth/me", {
-        withCredentials: true,
-    }).then(res => {
+    await api.get('/api/v1/auth/me').then(res => {
         dispatch(authSlice.actions.getUserSuccess(res.data));
     }).catch(error => {
-        dispatch(authSlice.actions.getUserFailed(error.response.data.message))
+        const message = error.response?.data?.message || error.message || "Failed to fetch user";
+        dispatch(authSlice.actions.getUserFailed(message))
     });
 };
 export const logout = () => async (dispatch) => {
     dispatch(authSlice.actions.logoutRequest());
-    await axios.get("https://library-management-system-2yg5.onrender.com/api/v1/auth/logout", {
-        withCredentials: true,
-    }).then(res => {
+    await api.get('/api/v1/auth/logout').then(res => {
         dispatch(authSlice.actions.logoutSuccess(res.data.message));
         dispatch(authSlice.actions.resetAuthSlice());
     }).catch(error => {
@@ -211,8 +205,7 @@ export const logout = () => async (dispatch) => {
 
 export const forgotPassword = (email) => async (dispatch) => {
     dispatch(authSlice.actions.forgotPasswordRequest());
-    await axios.post("https://library-management-system-2yg5.onrender.com/api/v1/auth/password/forgot", { email }, {
-        withCredentials: true,
+    await api.post('/api/v1/auth/password/forgot', { email }, {
         headers: {
             "Content-Type": "application/json"
         },
@@ -225,8 +218,7 @@ export const forgotPassword = (email) => async (dispatch) => {
 
 export const resetPassword = (data, token) => async (dispatch) => {
     dispatch(authSlice.actions.resetPasswordRequest());
-    await axios.put(`https://library-management-system-2yg5.onrender.com/api/v1/auth/password/reset/${token}`, data, {
-        withCredentials: true,
+    await api.put(`/api/v1/auth/password/reset/${token}`, data, {
         headers: {
             "Content-Type": "application/json"
         },
@@ -239,8 +231,7 @@ export const resetPassword = (data, token) => async (dispatch) => {
 
 export const updatePassword = (data) => async (dispatch) => {
     dispatch(authSlice.actions.updatePasswordRequest());
-    await axios.put(`https://library-management-system-2yg5.onrender.com/api/v1/auth/password/update`, data, {
-        withCredentials: true,
+    await api.put('/api/v1/auth/password/update', data, {
         headers: {
             "Content-Type": "application/json"
         },

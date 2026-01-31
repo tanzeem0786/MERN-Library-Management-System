@@ -9,35 +9,22 @@ import BookManagement from '../components/BookManagement.jsx';
 import Users from '../components/Users.jsx';
 import Catalog from '../components/Catalog.jsx';
 import MyBorrowedBooks from '../components/MyBorrowedBooks.jsx';
-import ErrorBoundary from "../components/ErrorBoundary.jsx";
-import Register from "./Register.jsx";
 
 
 const Home = () => {
 
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
     const [selectedComponents, setSelectedComponents] = useState("dashboard");
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
-    const { user, isAuthenticated} = useSelector((state) => state.auth);
+    const { user, loading, isAuthenticated } = useSelector((state) => state.auth);
 
-    // Authentication check
-    useEffect(() => {
-        if (!isAuthenticated) {
-            setLoading(false);
-            return <Navigate to={"/login"} />;
-        } else {
-            setLoading(false);
-        }
-    }, [isAuthenticated]);
-    
-    if (loading) {
+    if(loading) {
         return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
     }
-    // if (!isAuthenticated) {
-    //     return <Navigate to={"/login"} />;
-    // }
-
+    if(!isAuthenticated) {
+        return <Navigate to={"/login"} />
+    }
 
     return (
         <>
@@ -57,42 +44,42 @@ const Home = () => {
                 />
                 {/* <div className="flex-1 overflow-y-auto overflow-hidden overflow-x-scroll"> */}
 
-                    {(() => {
-                        switch (selectedComponents) {
-                            case "Dashboard":
-                                return user?.role === "User" ? (
-                                    <UserDashboard />
-                                ) : (
-                                    <AdminDashboard />
-                                );
-                                break;
-                            case "Books":
-                                return <BookManagement />;
-                                break;
-                            case "Catalog":
-                                if (user?.role === "Admin") {
-                                    return <Catalog />
-                                }
-                                break;
-                            case "Users":
-                                if (user?.role === "Admin") {
-                                    return <Users />
-                                }
-                                break;
-                            case "My Borrowed Books":
-                                if (user?.role === "User") {
-                                    return <MyBorrowedBooks />
-                                }
-                                break;
-                            default:
-                                return user?.role === "User" ? (
-                                    <UserDashboard />
-                                ) : (
-                                    <AdminDashboard />
-                                );
-                                break;
-                        }
-                    })()}
+                {(() => {
+                    switch (selectedComponents) {
+                        case "Dashboard":
+                            return user?.role === "User" ? (
+                                <UserDashboard />
+                            ) : (
+                                <AdminDashboard />
+                            );
+                            break;
+                        case "Books":
+                            return <BookManagement />;
+                            break;
+                        case "Catalog":
+                            if (user?.role === "Admin") {
+                                return <Catalog />
+                            }
+                            break;
+                        case "Users":
+                            if (user?.role === "Admin") {
+                                return <Users />
+                            }
+                            break;
+                        case "My Borrowed Books":
+                            if (user?.role === "User") {
+                                return <MyBorrowedBooks />
+                            }
+                            break;
+                        default:
+                            return user?.role === "User" ? (
+                                <UserDashboard />
+                            ) : (
+                                <AdminDashboard />
+                            );
+                            break;
+                    }
+                })()}
                 {/* </div> */}
             </div>
         </>

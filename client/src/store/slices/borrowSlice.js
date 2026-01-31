@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import axios from 'axios';
 import { toggleRecordBookPopup } from './popupSlice.js';
+import { api } from "../baseURL.js";
+
 
 const borrowSlice = createSlice({
     name: "borrow",
@@ -78,7 +80,7 @@ const borrowSlice = createSlice({
 
 export const fetchUserBorrowedBooks = () => async (dispatch) => {
     dispatch(borrowSlice.actions.fetchUserBorrowedBooksRequest());
-    await axios.get("https://library-management-system-2yg5.onrender.com/api/v1/borrow/my-borrowed-books", { withCredentials: true })
+    await api.get('/api/v1/borrow/my-borrowed-books')
         .then((res) => {
             dispatch(borrowSlice.actions.fetchUserBorrowedBooksSuccess(res.data.borrowedBooks));
         })
@@ -88,7 +90,7 @@ export const fetchUserBorrowedBooks = () => async (dispatch) => {
 };
 export const fetchAllBorrowedBooks = () => async (dispatch) => {
     dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest());
-    await axios.get("https://library-management-system-2yg5.onrender.com/api/v1/borrow/borrowed-books-by-users", { withCredentials: true })
+    await api.get('/api/v1/borrow/borrowed-books-by-users')
         .then((res) => {
             dispatch(borrowSlice.actions.fetchAllBorrowedBooksSuccess(res.data.borrowedBooks));
         })
@@ -99,8 +101,7 @@ export const fetchAllBorrowedBooks = () => async (dispatch) => {
 
 export const recordBorrowBook = (email, id) => async (dispatch) => {
     dispatch(borrowSlice.actions.recordBookRequest());
-    await axios.post(`https://library-management-system-2yg5.onrender.com/api/v1/borrow/record-borrow-book/${id}`, { email }, {
-        withCredentials: true,
+    await api.post(`/api/v1/borrow/record-borrow-book/${id}`, { email }, {
         headers: {
             "Content-Type": "application/json",
         }
@@ -116,8 +117,7 @@ export const recordBorrowBook = (email, id) => async (dispatch) => {
 
 export const returnBook = (email, id) => async (dispatch) => {
     dispatch(borrowSlice.actions.returnBookRequest());
-    await axios.put(`https://library-management-system-2yg5.onrender.com/api/v1/borrow/return-borrowed-book/${id}`, { email }, {
-        withCredentials: true,
+    await api.put(`/api/v1/borrow/return-borrowed-book/${id}`, { email }, {
         headers: {
             "Content-Type": "application/json",
         }
