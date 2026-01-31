@@ -15,6 +15,8 @@ import { User } from './models/userModel.js';
 
 export const app = express();
 
+app.set("trust proxy", 1);
+
 config({ path: "./config/config.env" });
 
 app.use(
