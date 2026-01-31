@@ -4,7 +4,7 @@ import ErrorHandler from "./errorMiddlewares.js";
 import  jwt from "jsonwebtoken";
 
 export const isAuthenticated = catchAsyncErrors(async(req, res, next) => {
-    const {token} = req.cookies.token;
+    const {token} = req.cookies;
     if(!token) {
         return next(new ErrorHandler("User is not Authenticated!", 400));
     }
